@@ -10,6 +10,8 @@ interface PropertiesContextProps {
   error: Error | null;
   page: number;
   totalPages: number;
+  isListVisible: boolean;
+  toggleListVisibility: () => void;
   setPage: (page: number) => void;
   loadProperties: (params?: FetchPropertiesParams) => Promise<void>;
 }
@@ -23,7 +25,12 @@ function PropertiesProvider({ children }: { children: React.ReactNode }) {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<Error | null>(null);
   const [page, setPage] = useState<number>(1);
-  const [totalPages, setTotalPages] = useState<number>(1000);
+  const [totalPages, setTotalPages] = useState<number>(1);
+  const [isListVisible, setIsListVisible] = useState<boolean>(true); // Estado de visibilidad
+
+  function toggleListVisibility() {
+    setIsListVisible((prev) => !prev);
+  }
 
   async function loadProperties(params?: FetchPropertiesParams) {
     setIsLoading(true);
@@ -34,7 +41,7 @@ function PropertiesProvider({ children }: { children: React.ReactNode }) {
         limit: 10,
       });
       setProperties(data);
-      setTotalPages(1000); // Actualiza según los datos del backend
+      setTotalPages(10); // Actualiza según los datos del backend
     } catch (err) {
       setError(err instanceof Error ? err : new Error("Error desconocido"));
     } finally {
@@ -54,6 +61,8 @@ function PropertiesProvider({ children }: { children: React.ReactNode }) {
         error,
         page,
         totalPages,
+        isListVisible,
+        toggleListVisibility,
         setPage,
         loadProperties,
       }}

@@ -4,8 +4,11 @@ import {
   MaterialSymbolsLoginRounded,
 } from "./Icons";
 import Button from "./ui/button";
+import { usePropertiesContext } from "../contexts/PropertiesContext";
 
 export default function Header() {
+  const { toggleListVisibility } = usePropertiesContext();
+
   return (
     <>
       <header className="flex items-center bg-white/90 rounded-xl justify-between md:bg-transparent md:!pointer-events-none md:w-full">
@@ -24,7 +27,7 @@ export default function Header() {
         </div>
 
         <div className="md:bg-white/90 h-full px-6 md:rounded-xl md:shadow-md flex items-center gap-4">
-          <Button>
+          <Button onClick={toggleListVisibility}>
             <MaterialSymbolsListRounded className="h-8 w-8 md:h-6 md:w-6" />
             <span className="hidden md:block text-base font-semibold uppercase">
               Listado

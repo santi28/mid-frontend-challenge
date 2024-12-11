@@ -14,8 +14,17 @@ export type SortOption = "relevance" | "highest" | "lowest";
 export default function PropertiesList() {
   const [sortBy, setSortBy] = useState<SortOption>("relevance");
 
-  const { properties, isLoading, error, page, totalPages, setPage } =
-    usePropertiesContext();
+  const {
+    properties,
+    isLoading,
+    error,
+    page,
+    totalPages,
+    setPage,
+    isListVisible,
+  } = usePropertiesContext();
+
+  if (!isListVisible) return null;
 
   const sortOptions: Record<
     SortOption,
