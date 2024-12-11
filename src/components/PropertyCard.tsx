@@ -1,4 +1,5 @@
 import { Property } from "../types/Property";
+import { MaterialSymbolsOpenInFullRounded } from "./Icons";
 
 interface PropertyCardProps {
   property: Property;
@@ -7,6 +8,11 @@ interface PropertyCardProps {
 const currencyFormatter = new Intl.NumberFormat("es-AR", {
   style: "currency",
   currency: "USD",
+});
+
+const dateFormatter = new Intl.DateTimeFormat("es-AR", {
+  dateStyle: "medium",
+  timeStyle: "short",
 });
 
 function PropertyBadge({ type }: { type: string }) {
@@ -37,10 +43,19 @@ export default function PropertyCard({ property }: PropertyCardProps) {
         />
       </div>
       <div className="flex flex-col p-4 bg-white/90 w-full h-full">
-        <h3 className="text-xl font-semibold">{property.title}</h3>
-        <span>{currencyFormatter.format(property.price)}</span>
+        <h3 className="text-xl font-semibold text-ellipsis w-full overflow-hidden whitespace-nowrap">
+          {property.title}
+        </h3>
+        <div className="flex items-end">
+          {currencyFormatter.format(property.price)}
+          <span className="text-sm ml-2 flex items-center gap-1">
+            <MaterialSymbolsOpenInFullRounded className="h-4 w-4" />
+            {property.area} m²
+          </span>
+        </div>
+        <span className="text-sm">{property.address}</span>
         <span className="text-sm">
-          {property.area} m² | {property.address}
+          {dateFormatter.format(new Date(property.createdAt))}
         </span>
       </div>
     </div>
