@@ -1,15 +1,25 @@
 import { MaterialSymbolsFilterListRounded } from "./Icons";
+import Button from "./ui/button";
 
 export default function Header() {
   return (
     <>
-      <header className="flex items-center md:w-fit">
-        <div className="w-full md:w-auto flex items-center justify-between py-2.5 px-2.5 bg-white/60 hover:bg-white/90 backdrop-blur-md rounded-xl shadow-md gap-2.5 transition-all duration-300 ease-in-out">
-          <img src="/logo.png" alt="Logo" className="h-6 w-auto object-cover" />
-          <button className="flex items-center gap-2 py-0.5 px-1.5 pr-2 rounded-lg select-none hover:bg-neutral-300/60">
+      <header className="flex items-center bg-white/90 rounded-xl justify-between md:bg-transparent md:!pointer-events-none md:w-full">
+        <div className="md:bg-white/90 h-full px-6 md:rounded-xl md:shadow-md flex items-center gap-4">
+          <img
+            src="/logo.png"
+            alt="Logo"
+            className="h-6 my-3 w-auto object-cover"
+          />
+          <Button>
             <MaterialSymbolsFilterListRounded className="h-4.5 w-4.5" />
             <span className="text-base font-semibold">Filtros</span>
-          </button>
+          </Button>
+        </div>
+
+        <div className="md:bg-white/90 h-full px-6 md:rounded-xl md:shadow-md flex items-center gap-4">
+          <Button>Filtros</Button>
+          <Button>Propiedades</Button>
         </div>
       </header>
     </>
