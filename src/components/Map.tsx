@@ -31,7 +31,7 @@ export default function Map() {
       ref={mapContainer}
       style={{
         position: "absolute",
-        zIndex: -10,
+        zIndex: 1,
         top: 0,
         bottom: 0,
         width: "100%",
