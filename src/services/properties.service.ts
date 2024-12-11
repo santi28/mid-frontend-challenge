@@ -1,23 +1,19 @@
 import axios from "../lib/axios";
 import { Property } from "../types/Property";
 
-export interface FechPropertiesParams {
+export interface FetchPropertiesParams {
   page?: number;
   limit?: number;
 }
 
 export class PropertiesService {
-  constructor() {}
-
-  async fetchProperties({ page = 1, limit = 10 }: FechPropertiesParams) {
+  async fetchProperties({ page = 1, limit = 10 }: FetchPropertiesParams) {
     const { data } = await axios.get<Property[]>("/properties", {
       params: {
         page,
         limit,
       },
     });
-
-    console.log(data);
 
     return data;
   }
