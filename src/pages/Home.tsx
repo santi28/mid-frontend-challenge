@@ -1,5 +1,6 @@
 import Header from "../components/Header";
 import Map from "../components/Map";
+import PropertiesList from "../components/PropertiesList";
 
 export default function Home() {
   return (
@@ -7,6 +8,7 @@ export default function Home() {
       <Map />
       <div id="floating-elements" className="floating-elements">
         <Header />
+        <PropertiesList />
       </div>
     </div>
   );

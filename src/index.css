@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 .floating-elements {
-  @apply relative z-10 p-6 h-dvh flex flex-col gap-6 pointer-events-none;
+  @apply relative z-10 p-6 h-dvh flex flex-col gap-4 pointer-events-none;
 
   * {
     @apply pointer-events-auto;
