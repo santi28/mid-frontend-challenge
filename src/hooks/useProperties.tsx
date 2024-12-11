@@ -1,10 +1,15 @@
 import { useQuery } from "@tanstack/react-query";
-import propertiesService from "../services/properties.service";
+import propertiesService, {
+  FetchPropertiesParams,
+} from "../services/properties.service";
 
-export const useProperties = () => {
+interface UsePropertiesParams extends FetchPropertiesParams {}
+
+export const useProperties = ({ page, limit }: UsePropertiesParams) => {
   return useQuery({
-    queryKey: ["properties"],
-    queryFn: () => propertiesService.fetchProperties({}),
+    queryKey: ["properties", page, limit],
+    queryFn: () => propertiesService.fetchProperties({ page, limit }),
+    placeholderData: (prev) => prev,
     staleTime: 1000 * 60 * 5, // Cache por 5 minutos
   });
 };

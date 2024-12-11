@@ -1,19 +1,22 @@
 import { useState } from "react";
 import { useProperties } from "../hooks/useProperties";
 import PropertyCard from "./PropertyCard";
-import Button from "./ui/button";
+import Pagination from "./Pagination";
+import SortByButton from "./SortByButton";
 import {
   MaterialSymbolsArrowCoolDownRounded,
   MaterialSymbolsArrowWarmUpRounded,
   MaterialSymbolsSortByAlphaRounded,
 } from "./Icons";
-import SortByButton from "./SortByButton";
 
 export type SortOption = "relevance" | "highest" | "lowest";
 
 export default function PropertiesList() {
   const [sortBy, setSortBy] = useState<SortOption>("relevance");
-  const { data: properties, isLoading, error } = useProperties();
+  const [page, setPage] = useState(1);
+  const limit = 10; // Número de elementos por página
+
+  const { data: properties, isLoading, error } = useProperties({ page, limit });
 
   const sortOptions: Record<
     SortOption,
@@ -81,6 +84,11 @@ export default function PropertiesList() {
           <PropertyCard key={property.id} property={property} />
         ))}
       </div>
+      <Pagination
+        currentPage={page}
+        totalPages={10} // Ajusta según la respuesta del backend
+        onPageChange={setPage}
+      />
     </section>
   );
 }
