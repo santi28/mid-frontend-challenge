@@ -147,6 +147,44 @@ export default function Map() {
           "circle-stroke-color": "#fff",
         },
       });
+
+      // Cuando se hace click en un cluster, se acerca al mismo
+      mapInstance.on("click", "clusters", (e) => {
+        console.log("Acercando al cluster");
+
+        const features = mapInstance.queryRenderedFeatures(e.point, {
+          layers: ["clusters"],
+        });
+
+        if (!features.length) return;
+        console.log(features);
+
+        const clusterId = features[0].properties?.clusterId;
+
+        const source: mapboxgl.GeoJSONSource = mapInstance.getSource(
+          sourceId
+        ) as mapboxgl.GeoJSONSource;
+        source.getClusterExpansionZoom(clusterId, (err, zoom) => {
+          if (err) return;
+
+          if (features[0].geometry.type === "Point") {
+            const coordinates = features[0].geometry.coordinates;
+
+            mapInstance.easeTo({
+              center: [coordinates[0], coordinates[1]],
+              zoom: zoom || 9,
+            });
+          }
+        });
+      });
+
+      mapInstance.on("mouseenter", "clusters", () => {
+        mapInstance.getCanvas().style.cursor = "pointer";
+      });
+
+      mapInstance.on("mouseleave", "clusters", () => {
+        mapInstance.getCanvas().style.cursor = "";
+      });
     }
   }
 
