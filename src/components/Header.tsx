@@ -1,4 +1,8 @@
-import { MaterialSymbolsFilterListRounded } from "./Icons";
+import {
+  MaterialSymbolsFilterListRounded,
+  MaterialSymbolsListRounded,
+  MaterialSymbolsLoginRounded,
+} from "./Icons";
 import Button from "./ui/button";
 
 export default function Header() {
@@ -18,8 +22,14 @@ export default function Header() {
         </div>
 
         <div className="md:bg-white/90 h-full px-6 md:rounded-xl md:shadow-md flex items-center gap-4">
-          <Button>Filtros</Button>
-          <Button>Propiedades</Button>
+          <Button>
+            <MaterialSymbolsListRounded className="h-4.5 w-4.5" />
+            Listado
+          </Button>
+          <Button>
+            Iniciar Sesión
+            <MaterialSymbolsLoginRounded className="h-4.5 w-4.5" />
+          </Button>
         </div>
       </header>
     </>
