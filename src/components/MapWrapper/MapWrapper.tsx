@@ -1,7 +1,12 @@
 import { useEffect, useRef } from "react";
 import mapboxgl from "mapbox-gl";
+
 import "mapbox-gl/dist/mapbox-gl.css";
-import { usePropertiesContext } from "../contexts/PropertiesContext";
+
+import { usePropertiesContext } from "../../contexts/PropertiesContext";
+import "./MapWrapper.css";
+import MapPopupContent from "./MapPopupContent";
+import { createRoot } from "react-dom/client";
 
 export default function Map() {
   const mapContainer = useRef<HTMLDivElement>(null);
@@ -178,28 +183,44 @@ export default function Map() {
         });
       });
 
-      // When a click event occurs on a feature in
-      // the unclustered-point layer, open a popup at
-      // the location of the feature, with
-      // description HTML from its properties.
       mapInstance.on("click", "unclustered-point", (e) => {
         if (!e.features || e.features[0].geometry.type !== "Point") return;
 
+        const currencyFormatter = new Intl.NumberFormat("es-AR", {
+          style: "currency",
+          currency: "USD",
+        });
+
         const coordinates = e.features[0].geometry.coordinates.slice();
         const title = e.features[0].properties?.title;
-        const price = e.features[0].properties?.price;
+        const price = currencyFormatter.format(e.features[0].properties?.price);
 
-        // Ensure that if the map is zoomed out such that
-        // multiple copies of the feature are visible, the
-        // popup appears over the copy being pointed to.
+        // Asegurar que el popup aparece sobre el punto seleccionado
         while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
           coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
         }
 
-        new mapboxgl.Popup()
+        // Crear un contenedor para el componente React
+        const popupContainer = document.createElement("div");
+
+        // Crear el popup
+        const popup = new mapboxgl.Popup({ closeButton: false })
           .setLngLat([coordinates[0], coordinates[1]])
-          .setHTML(`<h3>${title}</h3><p>${price}</p>`)
+          .setDOMContent(popupContainer)
           .addTo(mapInstance);
+
+        // Renderizar el componente React en el contenedor
+        const root = createRoot(popupContainer);
+        root.render(
+          <MapPopupContent
+            title={title}
+            price={price}
+            onClose={() => {
+              popup.remove();
+              root.unmount();
+            }}
+          />
+        );
       });
 
       mapInstance.on("mouseenter", "clusters", () => {
