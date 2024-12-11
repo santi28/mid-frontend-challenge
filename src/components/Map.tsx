@@ -30,12 +30,12 @@ export default function Map() {
     <div
       ref={mapContainer}
       style={{
-        position: "absolute",
+        position: "fixed",
         zIndex: 1,
         top: 0,
         bottom: 0,
-        width: "100%",
-        height: "100%",
+        width: "100dvw",
+        height: "100dvh",
       }}
     />
   );

@@ -1,4 +1,4 @@
-export interface Root {
+export interface Property {
   id: string;
   title: string;
   description: string;
