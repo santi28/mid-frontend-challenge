@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { useProperties } from "../hooks/useProperties";
 import PropertyCard from "./PropertyCard";
 import Pagination from "./Pagination";
 import SortByButton from "./SortByButton";
@@ -8,15 +7,15 @@ import {
   MaterialSymbolsArrowWarmUpRounded,
   MaterialSymbolsSortByAlphaRounded,
 } from "./Icons";
+import { usePropertiesContext } from "../contexts/PropertiesContext";
 
 export type SortOption = "relevance" | "highest" | "lowest";
 
 export default function PropertiesList() {
   const [sortBy, setSortBy] = useState<SortOption>("relevance");
-  const [page, setPage] = useState(1);
-  const limit = 10; // Número de elementos por página
 
-  const { data: properties, isLoading, error } = useProperties({ page, limit });
+  const { properties, isLoading, error, page, totalPages, setPage } =
+    usePropertiesContext();
 
   const sortOptions: Record<
     SortOption,
@@ -86,7 +85,7 @@ export default function PropertiesList() {
       </div>
       <Pagination
         currentPage={page}
-        totalPages={10} // Ajusta según la respuesta del backend
+        totalPages={totalPages}
         onPageChange={setPage}
       />
     </section>
