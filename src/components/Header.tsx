@@ -13,22 +13,28 @@ export default function Header() {
           <img
             src="/logo.png"
             alt="Logo"
-            className="h-6 my-3 w-auto object-cover"
+            className="h-6 my-4 md:my-3 w-auto object-cover"
           />
           <Button>
-            <MaterialSymbolsFilterListRounded className="h-4.5 w-4.5" />
-            <span className="text-base font-semibold">Filtros</span>
+            <MaterialSymbolsFilterListRounded className="h-8 w-8 md:h-6 md:w-6" />
+            <span className="hidden md:block text-base font-semibold uppercase">
+              Filtros
+            </span>
           </Button>
         </div>
 
         <div className="md:bg-white/90 h-full px-6 md:rounded-xl md:shadow-md flex items-center gap-4">
           <Button>
-            <MaterialSymbolsListRounded className="h-4.5 w-4.5" />
-            Listado
+            <MaterialSymbolsListRounded className="h-8 w-8 md:h-6 md:w-6" />
+            <span className="hidden md:block text-base font-semibold uppercase">
+              Listado
+            </span>
           </Button>
           <Button>
-            Iniciar Sesión
-            <MaterialSymbolsLoginRounded className="h-4.5 w-4.5" />
+            <span className="hidden md:block text-base font-semibold uppercase">
+              Ingresar
+            </span>
+            <MaterialSymbolsLoginRounded className="h-8 w-8 md:h-6 md:w-6" />
           </Button>
         </div>
       </header>
