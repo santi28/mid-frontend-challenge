@@ -178,11 +178,43 @@ export default function Map() {
         });
       });
 
+      // When a click event occurs on a feature in
+      // the unclustered-point layer, open a popup at
+      // the location of the feature, with
+      // description HTML from its properties.
+      mapInstance.on("click", "unclustered-point", (e) => {
+        if (!e.features || e.features[0].geometry.type !== "Point") return;
+
+        const coordinates = e.features[0].geometry.coordinates.slice();
+        const title = e.features[0].properties?.title;
+        const price = e.features[0].properties?.price;
+
+        // Ensure that if the map is zoomed out such that
+        // multiple copies of the feature are visible, the
+        // popup appears over the copy being pointed to.
+        while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+          coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+        }
+
+        new mapboxgl.Popup()
+          .setLngLat([coordinates[0], coordinates[1]])
+          .setHTML(`<h3>${title}</h3><p>${price}</p>`)
+          .addTo(mapInstance);
+      });
+
       mapInstance.on("mouseenter", "clusters", () => {
         mapInstance.getCanvas().style.cursor = "pointer";
       });
 
       mapInstance.on("mouseleave", "clusters", () => {
+        mapInstance.getCanvas().style.cursor = "";
+      });
+
+      mapInstance.on("mouseenter", "unclustered-point", () => {
+        mapInstance.getCanvas().style.cursor = "pointer";
+      });
+
+      mapInstance.on("mouseleave", "unclustered-point", () => {
         mapInstance.getCanvas().style.cursor = "";
       });
     }
