@@ -257,7 +257,7 @@ export default function Map() {
       ref={mapContainer}
       style={{
         position: "fixed",
-        zIndex: 1,
+        zIndex: 0,
         top: 0,
         bottom: 0,
         width: "100vw", // Cambié dvw a vw para asegurar compatibilidad

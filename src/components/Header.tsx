@@ -12,7 +12,7 @@ export default function Header() {
   return (
     <>
       <header className="flex items-center bg-white/90 backdrop-blur-sm rounded-xl justify-between md:backdrop-blur-none md:bg-transparent md:!pointer-events-none md:w-full">
-        <div className="md:bg-white/90 md:backdrop-blur-sm h-full px-6 md:rounded-xl md:shadow-md flex items-center gap-4">
+        <div className="md:bg-white/90 md:backdrop-blur-sm h-full px-6 md:rounded-xl md:shadow-md flex items-center gap-4 md:!pointer-events-auto">
           <img
             src="/logo.png"
             alt="Logo"
@@ -26,7 +26,7 @@ export default function Header() {
           </Button>
         </div>
 
-        <div className="md:bg-white/90 md:backdrop-blur-sm h-full px-6 md:rounded-xl md:shadow-md flex items-center gap-4">
+        <div className="md:bg-white/90 md:backdrop-blur-sm h-full px-6 md:rounded-xl md:shadow-md flex items-center gap-4 md:!pointer-events-auto">
           <Button onClick={toggleListVisibility}>
             <MaterialSymbolsListRounded className="h-8 w-8 md:h-6 md:w-6" />
             <span className="hidden md:block text-base font-semibold uppercase">

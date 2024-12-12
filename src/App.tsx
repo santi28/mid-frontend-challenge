@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import propertiesService from "./services/properties.service";
+import Layout from "./layouts/Layout";
 
 function App() {
   (async () => {
@@ -11,7 +12,9 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route element={<Layout />}>
+          <Route index element={<Home />} />
+        </Route>
       </Routes>
     </BrowserRouter>
   );
