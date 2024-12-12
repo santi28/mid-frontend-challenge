@@ -10,8 +10,6 @@ interface PropertiesContextProps {
   error: Error | null;
   page: number;
   totalPages: number;
-  isListVisible: boolean;
-  toggleListVisibility: () => void;
   setPage: (page: number) => void;
   loadProperties: (params?: FetchPropertiesParams) => Promise<void>;
 }
@@ -25,15 +23,9 @@ function PropertiesProvider({ children }: { children: React.ReactNode }) {
 
   const [isLoading, setIsLoading] = useState<boolean>(false); // Indica si se está cargando las propiedades
   const [error, setError] = useState<Error | null>(null); // Indica si hubo un error al cargar las propiedades
-  
+
   const [page, setPage] = useState<number>(1); // Indica la página actual para la lista de propiedades
   const [totalPages, setTotalPages] = useState<number>(1); // Indica el numero total de páginas para la lista de propiedades
-  
-  const [isListVisible, setIsListVisible] = useState<boolean>(true); // Indica si el listado de propiedades está visible o no
-
-  function toggleListVisibility() {
-    setIsListVisible((prev) => !prev);
-  }
 
   async function loadProperties(params?: FetchPropertiesParams) {
     setIsLoading(true);
@@ -64,8 +56,6 @@ function PropertiesProvider({ children }: { children: React.ReactNode }) {
         error,
         page,
         totalPages,
-        isListVisible,
-        toggleListVisibility,
         setPage,
         loadProperties,
       }}
@@ -77,11 +67,13 @@ function PropertiesProvider({ children }: { children: React.ReactNode }) {
 
 function usePropertiesContext() {
   const context = useContext(PropertiesContext);
+
   if (!context) {
     throw new Error(
       "usePropertiesContext debe usarse dentro de PropertiesProvider"
     );
   }
+
   return context;
 }
 

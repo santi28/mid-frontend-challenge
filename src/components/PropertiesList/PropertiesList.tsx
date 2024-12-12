@@ -6,25 +6,20 @@ import {
   MaterialSymbolsArrowCoolDownRounded,
   MaterialSymbolsArrowWarmUpRounded,
   MaterialSymbolsSortByAlphaRounded,
-} from "./Icons";
-import { usePropertiesContext } from "../contexts/PropertiesContext";
+} from "../Icons";
+import { usePropertiesContext } from "../../contexts/PropertiesContext";
+import { useUIContext } from "../../contexts/UIContext";
 
 export type SortOption = "relevance" | "highest" | "lowest";
 
 export default function PropertiesList() {
   const [sortBy, setSortBy] = useState<SortOption>("relevance");
 
-  const {
-    properties,
-    isLoading,
-    error,
-    page,
-    totalPages,
-    setPage,
-    isListVisible,
-  } = usePropertiesContext();
+  const { isPropertiesListOpen } = useUIContext();
+  const { properties, isLoading, error, page, totalPages, setPage } =
+    usePropertiesContext();
 
-  if (!isListVisible) return null;
+  if (!isPropertiesListOpen) return null;
 
   const sortOptions: Record<
     SortOption,

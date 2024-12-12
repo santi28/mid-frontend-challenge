@@ -1,5 +1,5 @@
-import { Property } from "../types/Property";
-import { MaterialSymbolsOpenInFullRounded } from "./Icons";
+import { Property } from "../../types/Property";
+import { MaterialSymbolsOpenInFullRounded } from "../Icons";
 
 interface PropertyCardProps {
   property: Property;

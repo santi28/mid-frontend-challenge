@@ -1,9 +1,9 @@
-import { cn } from "../lib/utils";
+import { cn } from "../../lib/utils";
 import {
   MaterialSymbolsChevronLeftRounded,
   MaterialSymbolsChevronRightRounded,
-} from "./Icons";
-import Button from "./ui/button";
+} from "../Icons";
+import Button from "../ui/button";
 
 interface PaginationProps {
   currentPage: number;
