@@ -1,7 +1,24 @@
+import { useState } from "react";
+import { useFiltersContext } from "../../contexts/FiltersContext";
 import { useUIContext } from "../../contexts/UIContext";
+import { useDebouncedCallback } from "use-debounce";
 
 export default function FilterWrapper() {
   const { isFilterOpen } = useUIContext();
+  const { localFilters, setLocalFilters } = useFiltersContext();
+
+  const [_searchBox, setSearchBox] = useState("");
+  const debounced = useDebouncedCallback((value) => {
+    setSearchBox(value);
+    setLocalFilters({ ...localFilters, search: value });
+  }, 500);
+
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
+    const { name, value } = e.target;
+    setLocalFilters({ ...localFilters, [name]: value });
+  };
 
   if (!isFilterOpen) return null;
 
@@ -15,6 +32,7 @@ export default function FilterWrapper() {
         <input
           id="search"
           type="text"
+          onChange={(e) => debounced(e.target.value)}
           placeholder="Buscar por título o dirección"
           className="w-full md:flex-1 py-2 px-4 border border-gray-300 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-red-700"
         />
@@ -28,6 +46,7 @@ export default function FilterWrapper() {
             id="type"
             name="type"
             className="w-full md:flex-1 py-2 px-4 border border-gray-300 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-red-700"
+            onChange={handleChange}
           >
             <option value="">Todos</option>
             <option value="house">Casa</option>
@@ -44,6 +63,7 @@ export default function FilterWrapper() {
             id="status"
             name="status"
             className="w-full md:flex-1 py-2 px-4 border border-gray-300 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-red-700"
+            onChange={handleChange}
           >
             <option value="">Todos</option>
             <option value="sale">En Venta</option>

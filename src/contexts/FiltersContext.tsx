@@ -2,8 +2,7 @@ import { createContext, useContext, useEffect, useState } from "react";
 import { usePropertiesContext } from "./PropertiesContext";
 
 export interface Filters {
-  name?: string;
-  address?: string;
+  search?: string;
   type?: "house" | "apartment" | "land" | "office";
   availability?: "sale" | "rent";
 }
@@ -11,13 +10,11 @@ export interface Filters {
 interface FiltersContextProps {
   localFilters: Filters;
   setLocalFilters: (filters: Partial<Filters>) => void;
-  applyFilters: () => void;
 }
 
 const initialState: FiltersContextProps = {
   localFilters: {},
   setLocalFilters: () => {},
-  applyFilters: () => {},
 };
 
 const FiltersContext = createContext<FiltersContextProps>(initialState);
@@ -26,19 +23,29 @@ export function FiltersProvider({ children }: { children: React.ReactNode }) {
   const { setFilters } = usePropertiesContext();
 
   const [localFilters, setLocalFiltersState] = useState<Filters>({});
-  const applyFilters = () => setFilters(localFilters);
 
-  useEffect(() => console.log(localFilters), [localFilters]);
+  useEffect(() => {
+    setFilters(localFilters);
+  }, [localFilters]);
 
   return (
     <FiltersContext.Provider
       value={{
         localFilters,
         setLocalFilters: setLocalFiltersState,
-        applyFilters,
       }}
     >
       {children}
     </FiltersContext.Provider>
   );
+}
+
+export function useFiltersContext() {
+  const context = useContext(FiltersContext);
+
+  if (!context) {
+    throw new Error("useFiltersContext debe usarse dentro de FiltersProvider");
+  }
+
+  return context;
 }

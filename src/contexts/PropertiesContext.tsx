@@ -55,9 +55,41 @@ function PropertiesProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     if (!data) return; // Si no hay datos, no hace nada
 
-    setVisibleProperties(data);
-    console.log(data);
-  }, [data]);
+    let filtered = [...data];
+
+    Object.entries(filters).forEach(([key, value]) => {
+      if (key !== "search" && value) {
+        filtered = filtered.filter((property) =>
+          property[key as keyof Property]
+            ?.toString()
+            .toLowerCase()
+            .includes(value.toString().toLowerCase())
+        );
+      }
+    });
+
+    if (filters.search) {
+      const parsedSearch = filters.search.toLowerCase();
+
+      console.log(
+        "🚀 ~ file: PropertiesList.tsx ~ line 109 ~ useEffect ~ filters",
+        parsedSearch,
+        filtered
+      );
+
+      filtered = filtered.filter((property) =>
+        ["title", "address"].some((key) => {
+          if (!filters.search) return false;
+          return property[key as keyof Property]
+            ?.toString()
+            .toLowerCase()
+            .includes(filters.search.toLowerCase());
+        })
+      );
+    }
+
+    setVisibleProperties(filtered);
+  }, [filters, data]);
 
   return (
     <PropertiesContext.Provider
