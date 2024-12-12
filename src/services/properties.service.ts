@@ -19,6 +19,15 @@ export class PropertiesService {
 
     return this.properties.slice((page - 1) * limit, page * limit);
   }
+
+  async fetchProperty(id: string) {
+    console.log(`🔌 Calling fetchProperty with id ${id}`);
+
+    const property = this.properties.find((property) => property.id === id);
+    console.log(property);
+
+    return property;
+  }
 }
 
 export default new PropertiesService();
