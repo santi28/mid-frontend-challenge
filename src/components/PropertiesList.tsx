@@ -59,7 +59,7 @@ export default function PropertiesList() {
 
   if (isLoading) {
     return (
-      <section className="bg-white/90 h-full p-6 rounded-xl shadow-md flex flex-col gap-6 md:w-[800px]">
+      <section className="bg-white/90 flex-1 p-6 rounded-xl shadow-md flex flex-col gap-6 md:w-[800px]">
         <div className="flex justify-center items-center">
           <span className="text-xl font-semibold">Loading...</span>
         </div>
@@ -69,7 +69,7 @@ export default function PropertiesList() {
 
   if (error) {
     return (
-      <section className="bg-white/90 h-full p-6 rounded-xl shadow-md flex flex-col gap-6 md:w-[800px]">
+      <section className="bg-white/90 flex-1 p-6 rounded-xl shadow-md flex flex-col gap-6 md:w-[800px]">
         <div>
           Error: {error instanceof Error ? error.message : "Unknown error"}
         </div>
@@ -78,7 +78,7 @@ export default function PropertiesList() {
   }
 
   return (
-    <section className="bg-white/90 h-full p-6 rounded-xl shadow-md flex flex-col gap-6 md:w-[800px] overflow-y-auto">
+    <section className="bg-white/90 h-full flex-1 p-6 rounded-xl shadow-md gap-6 md:w-[800px] overflow-y-auto flex flex-col">
       <header className="flex items-center justify-between">
         <h2 className="text-xl font-semibold">Anuncios</h2>
         <SortByButton
@@ -87,7 +87,7 @@ export default function PropertiesList() {
           options={sortOptions}
         />
       </header>
-      <div className="grid grid-cols-1 gap-2 md:grid-cols-2">
+      <div className="grid grid-cols-1 gap-2 md:grid-cols-2 flex-grow-0">
         {sortedProperties?.map((property) => (
           <PropertyCard key={property.id} property={property} />
         ))}
