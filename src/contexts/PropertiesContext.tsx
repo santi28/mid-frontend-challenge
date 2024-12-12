@@ -2,6 +2,7 @@ import { createContext, useContext, useEffect, useState } from "react";
 
 import { Property } from "../types/Property";
 import { useProperties } from "../hooks/useProperties";
+import { Filters } from "./FiltersContext";
 
 export type Pagination = { page: number; limit: number };
 
@@ -14,7 +15,7 @@ interface PropertiesContextProps {
   isLoading: boolean;
   error: Error | null;
 
-  // setFilters: (filters: Partial<Filters>) => void;
+  setFilters: (filters: Partial<Filters>) => void;
   setPagination: (pagination: Pagination) => void;
 }
 
@@ -30,14 +31,14 @@ const initialState: PropertiesContextProps = {
   isLoading: false,
   error: null,
 
-  // setFilters: () => {},
+  setFilters: () => {},
   setPagination: () => {},
 };
 
 const PropertiesContext = createContext<PropertiesContextProps>(initialState);
 
 function PropertiesProvider({ children }: { children: React.ReactNode }) {
-  // const [filters, setFilters] = useState<Filters>({});
+  const [filters, setFilters] = useState<Filters>({});
   const [pagination, setPagination] = useState<Pagination>({
     page: 1,
     limit: 10,
@@ -67,6 +68,7 @@ function PropertiesProvider({ children }: { children: React.ReactNode }) {
         isLoading,
         error,
         setPagination,
+        setFilters,
       }}
     >
       {children}
