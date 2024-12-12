@@ -1,4 +1,10 @@
+import { useUIContext } from "../../contexts/UIContext";
+
 export default function FilterWrapper() {
+  const { isFilterOpen } = useUIContext();
+
+  if (!isFilterOpen) return null;
+
   return (
     <section className="bg-white/90 backdrop-blur-sm p-6 rounded-xl shadow-md flex flex-col gap-2 max-w-[768px]">
       <h2 className="text-xl font-semibold text-gray-800 w-full">Filtros</h2>

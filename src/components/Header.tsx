@@ -4,10 +4,10 @@ import {
   MaterialSymbolsLoginRounded,
 } from "./Icons";
 import Button from "./ui/button";
-import { usePropertiesContext } from "../contexts/PropertiesContext";
+import { useUIContext } from "../contexts/UIContext";
 
 export default function Header() {
-  const { toggleListVisibility } = usePropertiesContext();
+  const { toggleListVisibility, toggleFilterVisibility } = useUIContext();
 
   return (
     <>
@@ -18,7 +18,7 @@ export default function Header() {
             alt="Logo"
             className="h-6 my-4 md:my-3 w-auto object-cover"
           />
-          <Button>
+          <Button onClick={toggleFilterVisibility}>
             <MaterialSymbolsFilterListRounded className="h-8 w-8 md:h-6 md:w-6" />
             <span className="hidden md:block text-base font-semibold uppercase">
               Filtros

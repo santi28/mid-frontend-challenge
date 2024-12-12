@@ -1,7 +1,7 @@
 import FilterWrapper from "../components/Filters/FilterWrapper";
 import Header from "../components/Header";
 import MapWrapper from "../components/MapWrapper/MapWrapper";
-import PropertiesList from "../components/PropertiesList";
+import PropertiesList from "../components/PropertiesList/PropertiesList";
 
 export default function Home() {
   return (
