@@ -11,7 +11,7 @@ import { createRoot } from "react-dom/client";
 export default function Map() {
   const mapContainer = useRef<HTMLDivElement>(null);
   const map = useRef<mapboxgl.Map | null>(null);
-  const { properties } = usePropertiesContext();
+  const { visibleProperties } = usePropertiesContext();
 
   useEffect(() => {
     console.log("Loading map");
@@ -44,12 +44,12 @@ export default function Map() {
     // Asegurarse de que el estilo del mapa esté cargado
     if (!mapInstance.isStyleLoaded()) {
       mapInstance.once("styledata", () => {
-        addOrUpdateSourceAndLayers(mapInstance, properties);
+        addOrUpdateSourceAndLayers(mapInstance, visibleProperties);
       });
     } else {
-      addOrUpdateSourceAndLayers(mapInstance, properties);
+      addOrUpdateSourceAndLayers(mapInstance, visibleProperties);
     }
-  }, [properties]);
+  }, [visibleProperties]);
 
   function addOrUpdateSourceAndLayers(
     mapInstance: mapboxgl.Map,
