@@ -3,7 +3,10 @@ import {
   MaterialSymbolsListRounded,
   MaterialSymbolsLoginRounded,
 } from "@/components/Icons";
+
 import Button from "@/components/ui/button";
+import Link from "@/components/ui/link";
+
 import { useUIContext } from "@/contexts/UIContext";
 
 export default function Header() {
@@ -18,21 +21,22 @@ export default function Header() {
             alt="Logo"
             className="h-6 my-4 md:my-3 w-auto object-cover"
           />
-          <Button onClick={toggleFilterVisibility}>
+          <Link to="/" onClick={toggleFilterVisibility}>
             <MaterialSymbolsFilterListRounded className="h-8 w-8 md:h-6 md:w-6" />
             <span className="hidden md:block text-base font-semibold uppercase">
               Filtros
             </span>
-          </Button>
+          </Link>
+          <Link to="/propiedad/1">Propiedades</Link>
         </div>
 
         <div className="md:bg-white/90 md:backdrop-blur-sm h-full px-6 md:rounded-xl md:shadow-md flex items-center gap-4 md:!pointer-events-auto">
-          <Button onClick={toggleListVisibility}>
+          <Link to="/" onClick={toggleListVisibility}>
             <MaterialSymbolsListRounded className="h-8 w-8 md:h-6 md:w-6" />
             <span className="hidden md:block text-base font-semibold uppercase">
               Listado
             </span>
-          </Button>
+          </Link>
           <Button>
             <span className="hidden md:block text-base font-semibold uppercase">
               Ingresar

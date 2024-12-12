@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import propertiesService from "./services/properties.service";
 import Layout from "./layouts/Layout";
+import PropertyDeatils from "./pages/PropertyDeatils";
 
 function App() {
   (async () => {
@@ -14,6 +15,7 @@ function App() {
       <Routes>
         <Route element={<Layout />}>
           <Route index element={<Home />} />
+          <Route path="propiedad/:id" element={<PropertyDeatils />} />
         </Route>
       </Routes>
     </BrowserRouter>

@@ -1,8 +1,19 @@
 import Header from "@/components/Header";
 import MapWrapper from "@/components/MapWrapper/MapWrapper";
-import { Outlet } from "react-router-dom";
+import { useUIContext } from "@/contexts/UIContext";
+import { useEffect } from "react";
+import { Outlet, useLocation } from "react-router-dom";
 
 export default function Layout() {
+  const { hideAllPanes } = useUIContext();
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.pathname.startsWith("/propiedad")) {
+      hideAllPanes();
+    }
+  }, [location]);
+
   return (
     <div className="relative h-dvh w-dvw">
       <MapWrapper />

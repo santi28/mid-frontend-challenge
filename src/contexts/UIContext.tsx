@@ -1,4 +1,5 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 
 interface UIContextProps {
   isFilterOpen: boolean;
@@ -6,6 +7,8 @@ interface UIContextProps {
 
   isPropertiesListOpen: boolean;
   toggleListVisibility: () => void;
+
+  hideAllPanes: () => void;
 }
 
 const UIContext = createContext<UIContextProps | undefined>(undefined);
@@ -14,6 +17,11 @@ export function UIContextProvider({ children }: { children: React.ReactNode }) {
   const [isFilterOpen, setIsFilterOpen] = useState<boolean>(false);
   const [isPropertiesListOpen, setIsPropertiesListOpen] =
     useState<boolean>(false);
+
+  const hideAllPanes = () => {
+    setIsFilterOpen(false);
+    setIsPropertiesListOpen(false);
+  };
 
   const toggleFilterVisibility = () => {
     setIsFilterOpen((prev) => !prev);
@@ -35,6 +43,7 @@ export function UIContextProvider({ children }: { children: React.ReactNode }) {
         toggleFilterVisibility,
         isPropertiesListOpen,
         toggleListVisibility,
+        hideAllPanes,
       }}
     >
       {children}
