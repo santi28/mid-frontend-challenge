@@ -2,9 +2,9 @@ import {
   MaterialSymbolsFilterListRounded,
   MaterialSymbolsListRounded,
   MaterialSymbolsLoginRounded,
-} from "./Icons";
-import Button from "./ui/button";
-import { useUIContext } from "../contexts/UIContext";
+} from "@/components/Icons";
+import Button from "@/components/ui/button";
+import { useUIContext } from "@/contexts/UIContext";
 
 export default function Header() {
   const { toggleListVisibility, toggleFilterVisibility } = useUIContext();
