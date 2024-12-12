@@ -1,7 +1,4 @@
 import { createContext, useContext, useEffect, useState } from "react";
-// import propertiesService, {
-//   FetchPropertiesParams,
-// } from "../services/properties.service";
 
 import { Property } from "../types/Property";
 import { useProperties } from "../hooks/useProperties";
@@ -60,43 +57,6 @@ function PropertiesProvider({ children }: { children: React.ReactNode }) {
     setVisibleProperties(data);
     console.log(data);
   }, [data]);
-
-  // async function loadProperties(params?: FetchPropertiesParams) {
-  //   setIsLoading(true);
-  //   setError(null);
-  //   try {
-  //     const data = await propertiesService.fetchProperties({
-  //       page: params?.page || page,
-  //       limit: 10,
-  //     });
-  //     setProperties(data);
-  //     setTotalPages(10); // Actualiza según los datos del backend
-  //   } catch (err) {
-  //     setError(err instanceof Error ? err : new Error("Error desconocido"));
-  //   } finally {
-  //     setIsLoading(false);
-  //   }
-  // }
-
-  // useEffect(() => {
-  //   loadProperties({ page });
-  // }, [page]);
-
-  // return (
-  //   <PropertiesContext.Provider
-  //     value={{
-  //       properties,
-  //       isLoading,
-  //       error,
-  //       page,
-  //       totalPages,
-  //       setPage,
-  //       loadProperties,
-  //     }}
-  //   >
-  //     {children}
-  //   </PropertiesContext.Provider>
-  // );
 
   return (
     <PropertiesContext.Provider
