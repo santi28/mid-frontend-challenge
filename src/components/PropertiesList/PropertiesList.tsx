@@ -13,13 +13,11 @@ import { useUIContext } from "../../contexts/UIContext";
 export type SortOption = "relevance" | "highest" | "lowest";
 
 export default function PropertiesList() {
-  const [sortBy, setSortBy] = useState<SortOption>("relevance");
-
   const { isPropertiesListOpen } = useUIContext();
-  const { properties, isLoading, error, page, totalPages, setPage } =
+  const { visibleProperties, pagination, setPagination, isLoading, error } =
     usePropertiesContext();
 
-  if (!isPropertiesListOpen) return null;
+  const [sortBy, setSortBy] = useState<SortOption>("relevance");
 
   const sortOptions: Record<
     SortOption,
@@ -39,6 +37,10 @@ export default function PropertiesList() {
     },
   };
 
+  const handlePageChange = (page: number) => {
+    setPagination({ ...pagination, page });
+  };
+
   const handleSort = () => {
     const options: SortOption[] = ["relevance", "highest", "lowest"];
     const currentIndex = options.indexOf(sortBy);
@@ -46,13 +48,16 @@ export default function PropertiesList() {
     setSortBy(options[nextIndex]);
   };
 
-  const sortedProperties = properties?.slice().sort((a, b) => {
+  const sortedProperties = visibleProperties?.slice().sort((a, b) => {
     if (sortBy === "highest") return b.price - a.price;
     if (sortBy === "lowest") return a.price - b.price;
     return 0; // Orden por relevancia (sin cambios)
   });
 
+  if (!isPropertiesListOpen) return null; // Si el componente no debe estar visible, no se muestra nada.
+
   if (isLoading) {
+    // Si está cargando mostramos un indicador de carga
     return (
       <section className="bg-white/90 flex-1 p-6 rounded-xl shadow-md flex flex-col gap-6 max-w-[768px]">
         <div className="flex justify-center items-center">
@@ -63,6 +68,7 @@ export default function PropertiesList() {
   }
 
   if (error) {
+    // Si hubo un error mostramos un mensaje de error (Temporal)
     return (
       <section className="bg-white/90 flex-1 p-6 rounded-xl shadow-md flex flex-col gap-6 max-w-[768px]">
         <div>
@@ -87,10 +93,11 @@ export default function PropertiesList() {
           <PropertyCard key={property.id} property={property} />
         ))}
       </div>
+
       <Pagination
-        currentPage={page}
-        totalPages={totalPages}
-        onPageChange={setPage}
+        currentPage={pagination.page}
+        totalPages={10000 / pagination.limit}
+        onPageChange={handlePageChange}
       />
     </section>
   );

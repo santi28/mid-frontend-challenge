@@ -13,6 +13,10 @@ export class PropertiesService {
   private properties = untypedProperties as Property[];
 
   async fetchProperties({ page = 1, limit = 10 }: FetchPropertiesParams) {
+    console.log(
+      `🔌 Calling fetchProperties on page ${page} with limit of ${limit}`
+    );
+
     return this.properties.slice((page - 1) * limit, page * limit);
   }
 }

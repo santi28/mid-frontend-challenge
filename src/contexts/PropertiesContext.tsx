@@ -1,63 +1,112 @@
-import React, { createContext, useContext, useState, useEffect } from "react";
-import propertiesService, {
-  FetchPropertiesParams,
-} from "../services/properties.service";
+import { createContext, useContext, useEffect, useState } from "react";
+// import propertiesService, {
+//   FetchPropertiesParams,
+// } from "../services/properties.service";
+
 import { Property } from "../types/Property";
+import { useProperties } from "../hooks/useProperties";
+
+export type Pagination = { page: number; limit: number };
 
 interface PropertiesContextProps {
-  properties: Property[];
+  allProperties: Property[];
+  visibleProperties: Property[];
+
+  pagination: Pagination;
+
   isLoading: boolean;
   error: Error | null;
-  page: number;
-  totalPages: number;
-  setPage: (page: number) => void;
-  loadProperties: (params?: FetchPropertiesParams) => Promise<void>;
+
+  // setFilters: (filters: Partial<Filters>) => void;
+  setPagination: (pagination: Pagination) => void;
 }
 
-const PropertiesContext = createContext<PropertiesContextProps | undefined>(
-  undefined
-);
+const initialState: PropertiesContextProps = {
+  allProperties: [],
+  visibleProperties: [],
+
+  pagination: {
+    page: 1,
+    limit: 10,
+  },
+
+  isLoading: false,
+  error: null,
+
+  // setFilters: () => {},
+  setPagination: () => {},
+};
+
+const PropertiesContext = createContext<PropertiesContextProps>(initialState);
 
 function PropertiesProvider({ children }: { children: React.ReactNode }) {
-  const [properties, setProperties] = useState<Property[]>([]); // Contiene las propiedades cargadas
+  // const [filters, setFilters] = useState<Filters>({});
+  const [pagination, setPagination] = useState<Pagination>({
+    page: 1,
+    limit: 10,
+  });
 
-  const [isLoading, setIsLoading] = useState<boolean>(false); // Indica si se está cargando las propiedades
-  const [error, setError] = useState<Error | null>(null); // Indica si hubo un error al cargar las propiedades
+  const { data, isLoading, error } = useProperties({
+    page: pagination.page,
+    limit: pagination.limit,
+  });
 
-  const [page, setPage] = useState<number>(1); // Indica la página actual para la lista de propiedades
-  const [totalPages, setTotalPages] = useState<number>(1); // Indica el numero total de páginas para la lista de propiedades
-
-  async function loadProperties(params?: FetchPropertiesParams) {
-    setIsLoading(true);
-    setError(null);
-    try {
-      const data = await propertiesService.fetchProperties({
-        page: params?.page || page,
-        limit: 10,
-      });
-      setProperties(data);
-      setTotalPages(10); // Actualiza según los datos del backend
-    } catch (err) {
-      setError(err instanceof Error ? err : new Error("Error desconocido"));
-    } finally {
-      setIsLoading(false);
-    }
-  }
+  // Estas son las propiedades que finalmente se mostrarán en el mapa
+  const [visibleProperties, setVisibleProperties] = useState<Property[]>([]);
 
   useEffect(() => {
-    loadProperties({ page });
-  }, [page]);
+    if (!data) return; // Si no hay datos, no hace nada
+
+    setVisibleProperties(data);
+    console.log(data);
+  }, [data]);
+
+  // async function loadProperties(params?: FetchPropertiesParams) {
+  //   setIsLoading(true);
+  //   setError(null);
+  //   try {
+  //     const data = await propertiesService.fetchProperties({
+  //       page: params?.page || page,
+  //       limit: 10,
+  //     });
+  //     setProperties(data);
+  //     setTotalPages(10); // Actualiza según los datos del backend
+  //   } catch (err) {
+  //     setError(err instanceof Error ? err : new Error("Error desconocido"));
+  //   } finally {
+  //     setIsLoading(false);
+  //   }
+  // }
+
+  // useEffect(() => {
+  //   loadProperties({ page });
+  // }, [page]);
+
+  // return (
+  //   <PropertiesContext.Provider
+  //     value={{
+  //       properties,
+  //       isLoading,
+  //       error,
+  //       page,
+  //       totalPages,
+  //       setPage,
+  //       loadProperties,
+  //     }}
+  //   >
+  //     {children}
+  //   </PropertiesContext.Provider>
+  // );
 
   return (
     <PropertiesContext.Provider
       value={{
-        properties,
+        allProperties: data || [],
+        visibleProperties,
+        pagination,
         isLoading,
         error,
-        page,
-        totalPages,
-        setPage,
-        loadProperties,
+        setPagination,
       }}
     >
       {children}
