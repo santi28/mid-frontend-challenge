@@ -1,8 +1,6 @@
-import React from "react";
-
 export default function FilterWrapper() {
   return (
-    <section className="bg-white/90 p-6 rounded-xl shadow-md flex flex-col gap-6 md:w-[800px]">
+    <section className="bg-white/90 backdrop-blur-sm p-6 rounded-xl shadow-md flex flex-col gap-6 md:w-[800px]">
       <header className="flex flex-col gap-2">
         <h2 className="text-xl font-semibold text-gray-800">Filtros</h2>
 

@@ -78,7 +78,7 @@ export default function PropertiesList() {
   }
 
   return (
-    <section className="bg-white/90 h-full flex-1 p-6 rounded-xl shadow-md gap-6 md:w-[800px] overflow-y-auto flex flex-col">
+    <section className="bg-white/90 backdrop-blur-sm h-full flex-1 p-6 rounded-xl shadow-md gap-6 md:w-[800px] overflow-y-auto flex flex-col">
       <header className="flex items-center justify-between">
         <h2 className="text-xl font-semibold">Anuncios</h2>
         <SortByButton
