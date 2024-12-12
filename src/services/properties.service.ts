@@ -1,4 +1,7 @@
-import axios from "../lib/axios";
+// import axios from "../lib/axios";
+// import { Property } from "../types/Property";
+
+import untypedProperties from "../assets/properties.json";
 import { Property } from "../types/Property";
 
 export interface FetchPropertiesParams {
@@ -7,15 +10,10 @@ export interface FetchPropertiesParams {
 }
 
 export class PropertiesService {
-  async fetchProperties({ page = 1, limit = 10 }: FetchPropertiesParams) {
-    const { data } = await axios.get<Property[]>("/properties", {
-      params: {
-        page,
-        limit,
-      },
-    });
+  private properties = untypedProperties as Property[];
 
-    return data;
+  async fetchProperties({ page = 1, limit = 10 }: FetchPropertiesParams) {
+    return this.properties.slice((page - 1) * limit, page * limit);
   }
 }
 

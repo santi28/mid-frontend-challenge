@@ -21,12 +21,15 @@ const PropertiesContext = createContext<PropertiesContextProps | undefined>(
 );
 
 function PropertiesProvider({ children }: { children: React.ReactNode }) {
-  const [properties, setProperties] = useState<Property[]>([]);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [error, setError] = useState<Error | null>(null);
-  const [page, setPage] = useState<number>(1);
-  const [totalPages, setTotalPages] = useState<number>(1);
-  const [isListVisible, setIsListVisible] = useState<boolean>(true); // Estado de visibilidad
+  const [properties, setProperties] = useState<Property[]>([]); // Contiene las propiedades cargadas
+
+  const [isLoading, setIsLoading] = useState<boolean>(false); // Indica si se está cargando las propiedades
+  const [error, setError] = useState<Error | null>(null); // Indica si hubo un error al cargar las propiedades
+  
+  const [page, setPage] = useState<number>(1); // Indica la página actual para la lista de propiedades
+  const [totalPages, setTotalPages] = useState<number>(1); // Indica el numero total de páginas para la lista de propiedades
+  
+  const [isListVisible, setIsListVisible] = useState<boolean>(true); // Indica si el listado de propiedades está visible o no
 
   function toggleListVisibility() {
     setIsListVisible((prev) => !prev);

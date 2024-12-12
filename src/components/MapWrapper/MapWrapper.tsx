@@ -77,6 +77,17 @@ export default function Map() {
         })),
       });
     } else {
+      mapInstance.on("moveend", (e) => {
+        const bounds = e.target.getBounds();
+
+        console.log("EL MAPA SE MOVIÓ", {
+          ne: bounds?.getNorthEast(),
+          nw: bounds?.getNorthWest(),
+          se: bounds?.getSouthEast(),
+          sw: bounds?.getSouthWest(),
+        });
+      });
+
       // Agregar la fuente y las capas si no existen
       mapInstance.addSource(sourceId, {
         type: "geojson",
