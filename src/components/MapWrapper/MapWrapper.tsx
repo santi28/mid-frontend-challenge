@@ -7,6 +7,7 @@ import { usePropertiesContext } from "../../contexts/PropertiesContext";
 import "./MapWrapper.css";
 import MapPopupContent from "./MapPopupContent";
 import { createRoot } from "react-dom/client";
+import Link from "../ui/link";
 
 export default function Map() {
   const mapContainer = useRef<HTMLDivElement>(null);
@@ -203,6 +204,7 @@ export default function Map() {
         });
 
         const coordinates = e.features[0].geometry.coordinates.slice();
+
         const title = e.features[0].properties?.title;
         const price = currencyFormatter.format(e.features[0].properties?.price);
 

@@ -26,9 +26,6 @@ export default function MapPopupContent({
       </header>
       <div>
         <p className="text-sm text-gray-600 mb-2">{price}</p>
-        <a href="#" className="text-blue-600 hover:underline">
-          Ver Detalles
-        </a>
       </div>
     </>
   );

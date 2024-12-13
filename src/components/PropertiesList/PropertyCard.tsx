@@ -1,5 +1,6 @@
 import { Property } from "../../types/Property";
 import { MaterialSymbolsOpenInFullRounded } from "../Icons";
+import Link from "../ui/link";
 
 interface PropertyCardProps {
   property: Property;
@@ -25,7 +26,10 @@ function PropertyBadge({ type }: { type: string }) {
 
 export default function PropertyCard({ property }: PropertyCardProps) {
   return (
-    <div className="flex flex-col items-center h-full w-full overflow-hidden rounded-xl border-2 border-neutral-300/40">
+    <Link
+      to={`/propiedad/${property.id}`}
+      className="flex flex-col items-center h-full w-full overflow-hidden rounded-xl border-2 border-neutral-300/40"
+    >
       <div className="relative w-full">
         <div className="absolute bottom-0 left-0 right-0 h-full bg-gradient-to-t from-black/50 to-transparent">
           <span className="absolute top-4 text-xs font-semibold bg-red-700 text-red-50 px-5 py-0.5 rounded-r-xl">
@@ -58,6 +62,6 @@ export default function PropertyCard({ property }: PropertyCardProps) {
           {dateFormatter.format(new Date(property.createdAt))}
         </span>
       </div>
-    </div>
+    </Link>
   );
 }
