@@ -1,10 +1,14 @@
 import { useNavigate, useParams } from "react-router-dom";
 
-import { MaterialSymbolsChevronLeftRounded } from "@/components/Icons";
+import {
+  MaterialSymbolsChevronLeftRounded,
+  MaterialSymbolsEditRounded,
+} from "@/components/Icons";
 import { currencyFormatter, dateFormatter } from "@/lib/formatters";
 import { useUIContext } from "@/contexts/UIContext";
 import { useProperty } from "@/hooks/useProperty";
 import Button from "@/components/ui/button";
+import Link from "@/components/ui/link";
 
 export default function PropertyDetails() {
   const navigate = useNavigate();
@@ -47,6 +51,7 @@ export default function PropertyDetails() {
   }
 
   const {
+    id,
     title,
     description,
     location,
@@ -70,13 +75,22 @@ export default function PropertyDetails() {
   return (
     <div className="bg-white/90 backdrop-blur-sm h-full flex-1 p-6 rounded-xl shadow-md gap-6 max-w-[768px] overflow-y-auto flex flex-col">
       <header className="flex items-center gap-6">
-        <Button
-          variant="secondary"
-          onClick={handleBackWithPropertiesListOpen}
-          className="p-2"
-        >
-          <MaterialSymbolsChevronLeftRounded className="h-6 w-6" />
-        </Button>
+        <div className="flex gap-2">
+          <Button
+            variant="secondary"
+            onClick={handleBackWithPropertiesListOpen}
+            className="p-2"
+          >
+            <MaterialSymbolsChevronLeftRounded className="h-6 w-6" />
+          </Button>
+          <Link
+            variant="secondary"
+            to={`/propiedad/editar/${id}`}
+            className="p-2"
+          >
+            <MaterialSymbolsEditRounded className="h-6 w-6" />
+          </Link>
+        </div>
         <h1 className="text-2xl font-bold text-gray-800">{title}</h1>
       </header>
       <img
