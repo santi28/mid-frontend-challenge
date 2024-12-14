@@ -1,14 +1,19 @@
+import { useNavigate, useParams } from "react-router-dom";
+
 import { MaterialSymbolsChevronLeftRounded } from "@/components/Icons";
-import Button from "@/components/ui/button";
+import { currencyFormatter, dateFormatter } from "@/lib/formatters";
 import { useUIContext } from "@/contexts/UIContext";
 import { useProperty } from "@/hooks/useProperty";
-import { useNavigate, useParams } from "react-router-dom";
+import Button from "@/components/ui/button";
 
 export default function PropertyDetails() {
   const navigate = useNavigate();
   const params = useParams<{ id: string }>();
 
-  if (!params.id) return navigate("/");
+  if (!params.id) {
+    navigate("/");
+    return null;
+  }
 
   const { toggleListVisibility } = useUIContext();
   const { data, isLoading, error } = useProperty(params.id);
@@ -56,16 +61,6 @@ export default function PropertyDetails() {
     updatedAt,
     owner,
   } = data;
-
-  const currencyFormatter = new Intl.NumberFormat("es-AR", {
-    style: "currency",
-    currency: "USD",
-  });
-
-  const dateFormatter = new Intl.DateTimeFormat("es-AR", {
-    dateStyle: "medium",
-    timeStyle: "short",
-  });
 
   const handleBackWithPropertiesListOpen = () => {
     toggleListVisibility();
