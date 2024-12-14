@@ -37,7 +37,7 @@ router.get(
       data: paginatedProperties,
       pagination: {
         current_page: page,
-        per_page: limit,
+        limit,
         total_pages: totalPages,
         total_items: totalItems,
       },

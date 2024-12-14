@@ -96,7 +96,7 @@ export default function PropertiesList() {
 
       <Pagination
         currentPage={pagination.page}
-        totalPages={10000 / pagination.limit}
+        totalPages={pagination.total_pages}
         onPageChange={handlePageChange}
       />
     </section>

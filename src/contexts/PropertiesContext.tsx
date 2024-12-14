@@ -4,7 +4,11 @@ import { Property } from "../types/Property";
 import { useProperties } from "../hooks/useProperties";
 import { Filters } from "./FiltersContext";
 
-export type Pagination = { page: number; limit: number };
+interface Pagination {
+  page: number;
+  limit: number;
+  total_pages: number;
+}
 
 interface PropertiesContextProps {
   allProperties: Property[];
@@ -26,6 +30,7 @@ const initialState: PropertiesContextProps = {
   pagination: {
     page: 1,
     limit: 10,
+    total_pages: 1,
   },
 
   isLoading: false,
@@ -42,12 +47,19 @@ function PropertiesProvider({ children }: { children: React.ReactNode }) {
   const [pagination, setPagination] = useState<Pagination>({
     page: 1,
     limit: 10,
+    total_pages: 1,
   });
 
-  const { data, isLoading, error } = useProperties({
+  const {
+    data: fetchedData,
+    isLoading,
+    error,
+  } = useProperties({
     page: pagination.page,
     limit: pagination.limit,
   });
+
+  const { data, pagination: fetchedPagination } = fetchedData || {};
 
   // Estas son las propiedades que finalmente se mostrarán en el mapa
   const [visibleProperties, setVisibleProperties] = useState<Property[]>([]);
@@ -69,14 +81,6 @@ function PropertiesProvider({ children }: { children: React.ReactNode }) {
     });
 
     if (filters.search) {
-      const parsedSearch = filters.search.toLowerCase();
-
-      console.log(
-        "🚀 ~ file: PropertiesList.tsx ~ line 109 ~ useEffect ~ filters",
-        parsedSearch,
-        filtered
-      );
-
       filtered = filtered.filter((property) =>
         ["title", "address"].some((key) => {
           if (!filters.search) return false;
@@ -89,6 +93,10 @@ function PropertiesProvider({ children }: { children: React.ReactNode }) {
     }
 
     setVisibleProperties(filtered);
+    setPagination((prev) => ({
+      ...prev,
+      total_pages: fetchedPagination?.total_pages || 1,
+    }));
   }, [filters, data]);
 
   return (
