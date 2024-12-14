@@ -1,7 +1,7 @@
 import {
   MaterialSymbolsFilterListRounded,
   MaterialSymbolsListRounded,
-  MaterialSymbolsLoginRounded,
+  MaterialSymbolsAddNotesRounded,
 } from "@/components/Icons";
 
 import Button from "@/components/ui/button";
@@ -38,9 +38,9 @@ export default function Header() {
           </Link>
           <Button>
             <span className="hidden md:block text-base font-semibold uppercase">
-              Ingresar
+              Publicar
             </span>
-            <MaterialSymbolsLoginRounded className="h-8 w-8 md:h-6 md:w-6" />
+            <MaterialSymbolsAddNotesRounded className="h-8 w-8 md:h-6 md:w-6" />
           </Button>
         </div>
       </header>
