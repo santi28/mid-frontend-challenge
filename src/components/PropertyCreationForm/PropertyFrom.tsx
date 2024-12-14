@@ -1,11 +1,11 @@
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useParams } from "react-router-dom";
-import { useProperty } from "@/hooks/useProperty";
 import { useEffect } from "react";
 import { Property } from "@/types/Property";
+
 import { useCreateProperty } from "@/hooks/useCreateProperty";
+import { useUpdateProperty } from "@/hooks/useUpdateProperty";
 
 const errorMessages = {
   title: "El Título es obligatorio",
@@ -33,6 +33,7 @@ const errorMessages = {
 };
 
 const PropertyCreationFormSchema = z.object({
+  id: z.string().optional(),
   title: z.string().min(3, errorMessages.title).max(100),
   address: z.string().min(3, errorMessages.address).max(100),
   description: z.string().min(3, errorMessages.description).max(400),
@@ -75,6 +76,7 @@ interface PropertyCreationFormProps {
 export const mapPropertyToFormData = (
   property: Property
 ): PropertyCreationFormSchemaType => ({
+  id: property.id,
   title: property.title,
   address: property.address,
   description: property.description,
@@ -98,6 +100,7 @@ export default function PropertyCreationForm({
   property,
 }: PropertyCreationFormProps) {
   const createPropertyMutation = useCreateProperty();
+  const updatePropertyMutation = useUpdateProperty();
 
   const defaultValues = property ? mapPropertyToFormData(property) : {};
 
@@ -121,7 +124,12 @@ export default function PropertyCreationForm({
   const onSubmit = (data: PropertyCreationFormSchemaType) => {
     if (mode === "edit") {
       console.log("Editando propiedad:", data);
-      // Aquí llamarías a la API de actualización
+      updatePropertyMutation.mutate({
+        ...data,
+        images: [data.image],
+        isActive: true,
+        updatedAt: new Date().toISOString(),
+      });
     } else {
       console.log("Creando nueva propiedad:", data);
       createPropertyMutation.mutate({
@@ -133,7 +141,7 @@ export default function PropertyCreationForm({
       });
     }
 
-    reset();
+    // reset();
   };
 
   return (
@@ -201,7 +209,7 @@ export default function PropertyCreationForm({
           <span className="text-sm text-gray-600">Latitud de la propiedad</span>
           <input
             type="number"
-            step="0.0001"
+            step="0.00000001"
             className="w-full rounded-lg border border-gray-300 p-2 px-4"
             placeholder="Latitud"
             {...register("location.lat", { valueAsNumber: true })}
@@ -220,7 +228,7 @@ export default function PropertyCreationForm({
           </span>
           <input
             type="number"
-            step="0.0001"
+            step="0.00000001"
             className="w-full rounded-lg border border-gray-300 p-2 px-4"
             placeholder="Longitud"
             {...register("location.lng", { valueAsNumber: true })}
