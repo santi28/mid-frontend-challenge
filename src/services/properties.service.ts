@@ -2,6 +2,7 @@ import axios from "../lib/axios";
 import { Property } from "../types/Property";
 
 import untypedProperties from "../assets/properties.json";
+import { data } from "react-router-dom";
 
 export interface Pagination {
   page: number;
@@ -57,10 +58,29 @@ export class PropertiesService {
   }
 
   async fetchProperty(id: string) {
-    const property = this.properties.find((property) => property.id === id);
-    console.log(property);
+    const { data } = await axios.get(`${VITE_API_URL}/properties/${id}`);
 
-    return property;
+    return data;
+  }
+
+  async createProperty(property: Omit<Property, "id">) {
+    const { data } = await axios.post(`${VITE_API_URL}/properties`, property);
+    return data;
+  }
+
+  async updateProperty(
+    id: string,
+    updates: Partial<Property>
+  ): Promise<Property> {
+    const { data } = await axios.put(
+      `${VITE_API_URL}/properties/${id}`,
+      updates
+    );
+    return data;
+  }
+
+  async deleteProperty(id: string): Promise<void> {
+    await axios.delete(`${VITE_API_URL}/properties/${id}`);
   }
 }
 

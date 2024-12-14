@@ -5,6 +5,7 @@ import { useParams } from "react-router-dom";
 import { useProperty } from "@/hooks/useProperty";
 import { useEffect } from "react";
 import { Property } from "@/types/Property";
+import { useCreateProperty } from "@/hooks/useCreateProperty";
 
 const errorMessages = {
   title: "El Título es obligatorio",
@@ -96,6 +97,8 @@ export default function PropertyCreationForm({
   mode = "create",
   property,
 }: PropertyCreationFormProps) {
+  const createPropertyMutation = useCreateProperty();
+
   const defaultValues = property ? mapPropertyToFormData(property) : {};
 
   const {
@@ -110,10 +113,10 @@ export default function PropertyCreationForm({
   });
 
   useEffect(() => {
-    if (defaultValues) {
-      reset(defaultValues);
-    }
-  }, [defaultValues, reset]);
+    console.log("Mode:", mode);
+    console.log("Valores por defecto:", defaultValues);
+    reset();
+  }, []);
 
   const onSubmit = (data: PropertyCreationFormSchemaType) => {
     if (mode === "edit") {
@@ -121,8 +124,16 @@ export default function PropertyCreationForm({
       // Aquí llamarías a la API de actualización
     } else {
       console.log("Creando nueva propiedad:", data);
-      // Aquí llamarías a la API de creación
+      createPropertyMutation.mutate({
+        ...data,
+        images: [data.image],
+        isActive: true,
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
+      });
     }
+
+    reset();
   };
 
   return (

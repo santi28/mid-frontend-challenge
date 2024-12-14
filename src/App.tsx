@@ -3,7 +3,8 @@ import Home from "./pages/Home";
 import propertiesService from "./services/properties.service";
 import Layout from "./layouts/Layout";
 import PropertyDeatils from "./pages/PropertyDeatils";
-import PropertyCreation from "./pages/PropertyFormPage";
+import PropertyCreatePage from "./pages/PropertyCreatePage";
+import PropertyEditPage from "./pages/PropertyEditPage";
 
 function App() {
   (async () => {
@@ -18,8 +19,8 @@ function App() {
           <Route index element={<Home />} />
           <Route path="propiedad/:id" element={<PropertyDeatils />} />
         </Route>
-        <Route path="propiedad/crear" element={<PropertyCreation />} />
-        <Route path="propiedad/editar/:id" element={<PropertyCreation />} />
+        <Route path="propiedad/crear" element={<PropertyCreatePage />} />
+        <Route path="propiedad/editar/:id" element={<PropertyEditPage />} />
       </Routes>
     </BrowserRouter>
   );
