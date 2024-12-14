@@ -36,12 +36,12 @@ export default function Header() {
               Listado
             </span>
           </Link>
-          <Button>
+          <Link to="/propiedad/crear" onClick={toggleListVisibility}>
             <span className="hidden md:block text-base font-semibold uppercase">
               Publicar
             </span>
             <MaterialSymbolsAddNotesRounded className="h-8 w-8 md:h-6 md:w-6" />
-          </Button>
+          </Link>
         </div>
       </header>
     </>

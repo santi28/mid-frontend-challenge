@@ -3,6 +3,7 @@ import Home from "./pages/Home";
 import propertiesService from "./services/properties.service";
 import Layout from "./layouts/Layout";
 import PropertyDeatils from "./pages/PropertyDeatils";
+import PropertyCreation from "./pages/PropertyCreation";
 
 function App() {
   (async () => {
@@ -17,6 +18,7 @@ function App() {
           <Route index element={<Home />} />
           <Route path="propiedad/:id" element={<PropertyDeatils />} />
         </Route>
+        <Route path="propiedad/crear" element={<PropertyCreation />} />
       </Routes>
     </BrowserRouter>
   );
