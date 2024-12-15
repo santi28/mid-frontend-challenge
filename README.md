@@ -2,6 +2,8 @@
 
 Este proyecto es una aplicación desarrollada con **ReactJS** y **Vite** como parte del desafío de Frontend para **Red Atlas**. Su propósito es visualizar propiedades inmobiliarias en un mapa interactivo, gestionar datos a través de formularios y proporcionar una experiencia de usuario fluida y moderna.
 
+Podés ver el proyecto en acción [acá](https://sdenicolas-red-atlas-challenge.vercel.app/).
+
 ## 🚀 Tecnologías utilizadas
 
 Este proyecto utiliza tecnologías modernas para optimizar la experiencia de desarrollo y la funcionalidad del usuario:
