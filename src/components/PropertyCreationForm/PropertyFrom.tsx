@@ -1,7 +1,7 @@
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Property } from "@/types/Property";
 
 import { useCreateProperty } from "@/hooks/useCreateProperty";
@@ -121,10 +121,10 @@ export default function PropertyCreationForm({
     reset();
   }, []);
 
-  const onSubmit = (data: PropertyCreationFormSchemaType) => {
+  const onSubmit = async (data: PropertyCreationFormSchemaType) => {
     if (mode === "edit") {
       console.log("Editando propiedad:", data);
-      updatePropertyMutation.mutate({
+      await updatePropertyMutation.mutateAsync({
         ...data,
         images: [data.image],
         isActive: true,
@@ -132,7 +132,7 @@ export default function PropertyCreationForm({
       });
     } else {
       console.log("Creando nueva propiedad:", data);
-      createPropertyMutation.mutate({
+      await createPropertyMutation.mutateAsync({
         ...data,
         images: [data.image],
         isActive: true,

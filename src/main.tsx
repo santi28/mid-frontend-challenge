@@ -6,6 +6,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { PropertiesProvider } from "./contexts/PropertiesContext.tsx";
 import { UIContextProvider } from "./contexts/UIContext.tsx";
 import { FiltersProvider } from "./contexts/FiltersContext.tsx";
+import { Toaster } from "sonner";
 
 const queryClient = new QueryClient();
 
@@ -16,6 +17,7 @@ createRoot(document.getElementById("root")!).render(
         <PropertiesProvider>
           <FiltersProvider>
             <App />
+            <Toaster richColors />
           </FiltersProvider>
         </PropertiesProvider>
       </UIContextProvider>
