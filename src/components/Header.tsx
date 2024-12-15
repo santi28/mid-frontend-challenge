@@ -7,8 +7,10 @@ import {
 import Link from "@/components/ui/link";
 
 import { useUIContext } from "@/contexts/UIContext";
+import { useState } from "react";
 
 export default function Header() {
+  const [date] = useState<Date>(new Date());
   const { toggleListVisibility, toggleFilterVisibility } = useUIContext();
 
   return (
@@ -26,6 +28,7 @@ export default function Header() {
               Filtros
             </span>
           </Link>
+          {date.toUTCString()}
         </div>
 
         <div className="md:bg-white/90 md:backdrop-blur-sm h-full px-6 md:rounded-xl md:shadow-md flex items-center gap-4 md:!pointer-events-auto">

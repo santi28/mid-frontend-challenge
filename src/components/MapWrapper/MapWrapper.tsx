@@ -256,14 +256,7 @@ export default function Map() {
   return (
     <div
       ref={mapContainer}
-      style={{
-        position: "fixed",
-        zIndex: 0,
-        top: 0,
-        bottom: 0,
-        width: "100vw", // Cambié dvw a vw para asegurar compatibilidad
-        height: "100vh",
-      }}
+      className="fixed top-0 left-0 w-full h-full -z-10"
     />
   );
 }

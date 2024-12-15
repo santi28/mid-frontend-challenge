@@ -1,10 +1,9 @@
 import Header from "@/components/Header";
-import MapWrapper from "@/components/MapWrapper/MapWrapper";
 import { useUIContext } from "@/contexts/UIContext";
 import { useEffect } from "react";
 import { Outlet, useLocation } from "react-router-dom";
 
-export default function Layout() {
+export default function MainLayout() {
   const { hideAllPanes } = useUIContext();
   const location = useLocation();
 
@@ -15,12 +14,9 @@ export default function Layout() {
   }, [location]);
 
   return (
-    <div className="relative h-dvh w-dvw">
-      <MapWrapper />
-      <div className="floating-wrapper relative w-full h-full flex flex-col p-6 gap-4 pointer-events-none">
-        <Header />
-        <Outlet />
-      </div>
+    <div className="flex flex-col h-dvh w-full p-6 gap-6 relative z-10">
+      <Header />
+      <Outlet />
     </div>
   );
 }

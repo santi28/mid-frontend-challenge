@@ -11,10 +11,5 @@ export default function PropertyEditPage() {
   if (isLoading) return <p>Cargando datos de la propiedad...</p>;
   if (isError) return <p>Error: {error.message}</p>;
 
-  return (
-    <div className="flex flex-col w-full h-dvh p-6 gap-4">
-      <Header />
-      <PropertyCreationFrom mode="edit" property={propertyData} />
-    </div>
-  );
+  return <PropertyCreationFrom mode="edit" property={propertyData} />;
 }
