@@ -2,6 +2,12 @@
 
 Este proyecto es una aplicación desarrollada con **ReactJS** y **Vite** como parte del desafío de Frontend para **Red Atlas**. Su propósito es visualizar propiedades inmobiliarias en un mapa interactivo, gestionar datos a través de formularios y proporcionar una experiencia de usuario fluida y moderna.
 
+El desafío me resultó muy interesante. Aunque no fue excesivamente difícil, disfruté mucho trabajando en el proyecto. Primero, comencé por definir la arquitectura de la aplicación y, a continuación, me enfoqué en diseñar la interfaz de usuario, basándome en el estilo del sitio web de Red Atlas. Para esto, utilicé Tailwind CSS y CVA (Class-Variance Authority) para gestionar las diferentes variantes de algunos componentes. Luego, implementé las funcionalidades, lo que implicó conectar el front-end con el back-end utilizando Axios y React Query. Posteriormente, trabajé en la gestión de formularios, empleando React Hook Form y Zod para validar los datos proporcionados por el usuario.
+
+Una vez que la aplicación estaba funcionando correctamente, dediqué tiempo a reestructurar y refactorizar algunas partes del código que consideré poco legibles o difíciles de manejar.
+
+Lo que más me desafió y me resultó interesante del proyecto fue la integración con Mapbox, ya que me dio la oportunidad de trabajar y aprender sobre un área en la que no tenía tanta experiencia previamente.
+
 Podés ver el proyecto en acción [acá](https://sdenicolas-red-atlas-challenge.vercel.app/).
 
 ## 🚀 Tecnologías utilizadas
