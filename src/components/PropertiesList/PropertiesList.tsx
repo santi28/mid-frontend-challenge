@@ -68,7 +68,6 @@ export default function PropertiesList() {
   }
 
   if (error) {
-    // Si hubo un error mostramos un mensaje de error (Temporal)
     return (
       <section className="bg-white/90 flex-1 p-6 rounded-xl shadow-md flex flex-col gap-6 max-w-[768px]">
         <div>
