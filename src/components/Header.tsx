@@ -7,7 +7,6 @@ import {
 import Link from "@/components/ui/link";
 
 import { useUIContext } from "@/contexts/UIContext";
-import { useState } from "react";
 
 export default function Header() {
   const { toggleListVisibility, toggleFilterVisibility } = useUIContext();

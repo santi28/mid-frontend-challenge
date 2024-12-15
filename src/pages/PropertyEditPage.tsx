@@ -1,4 +1,3 @@
-import Header from "@/components/Header";
 import PropertyCreationFrom from "@/components/PropertyCreationForm/PropertyFrom";
 import { useProperty } from "@/hooks/useProperty";
 import { useParams } from "react-router-dom";
