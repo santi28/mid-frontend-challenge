@@ -1,50 +1,99 @@
-# React + TypeScript + Vite
+# 🗺️ Red Atlas Frontend Challenge
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Este proyecto es una aplicación desarrollada con **ReactJS** y **Vite** como parte del desafío de Frontend para **Red Atlas**. Su propósito es visualizar propiedades inmobiliarias en un mapa interactivo, gestionar datos a través de formularios y proporcionar una experiencia de usuario fluida y moderna.
 
-Currently, two official plugins are available:
+## 🚀 Tecnologías utilizadas
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Este proyecto utiliza tecnologías modernas para optimizar la experiencia de desarrollo y la funcionalidad del usuario:
 
-## Expanding the ESLint configuration
+- **React Query**: Para gestionar el estado de datos remotos y sincronizar con la API.
+- **Axios**: Cliente HTTP para interactuar con el back-end.
+- **React Router**: Para la navegación y gestión de rutas.
+- **Tailwind CSS**: Sistema de estilos basado en utilidades para un diseño rápido y receptivo.
+- **React Hook Form**: Manejo eficiente de formularios.
+- **Zod**: Validación de datos para garantizar consistencia en entradas del usuario.
+- **Mapbox**: Servicio de mapas interactivos para visualizar las propiedades.
+- **Vite**: Herramienta rápida para desarrollo y construcción de aplicaciones.
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## 🌟 Características principales
 
-- Configure the top-level `parserOptions` property like this:
+- **Mapa interactivo**: Uso de **Mapbox** para mostrar propiedades en ubicaciones específicas.
+- **Gestión de propiedades**: Listar, crear, editar y visualizar propiedades mediante formularios dinámicos.
+- **Filtrado y paginación**: Componentes intuitivos para explorar propiedades con criterios personalizados.
+- **Diseño modular**: Arquitectura organizada en componentes, layouts y contextos.
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+## 🛠️ Requisitos previos
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+Antes de iniciar, asegurate de tener las siguientes herramientas instaladas:
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+- [Node.js](https://nodejs.org/): Entorno de ejecución de JavaScript.
+- [Bun](https://bun.sh/) o [PNPM](https://pnpm.io/): Administradores de paquetes recomendados.
+- [Git](https://git-scm.com/): Para clonar el repositorio.
+- **Token de Mapbox**: Necesario para habilitar los mapas interactivos. Podés obtener uno [acá](https://account.mapbox.com/).
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+## 🧑‍💻 Instalación y configuración
+
+1. **Clonar el repositorio**:
+   En tu terminal, ejecuta:
+
+   ```bash
+   git clone https://github.com/santi28/mid-frontend-challenge.git
+   ```
+
+2. **Instalar dependencias**:
+   Ingresa al directorio del proyecto y ejecuta:
+
+   ```bash
+   bun install
+   # o
+   pnpm install
+   ```
+
+3. **Configurar Mapbox**:
+   Utilizando el archivo `.env.template` como plantilla, crea un archivo `.env` en la raíz del proyecto y añade tu token de Mapbox y la URL de la API:
+
+   ```bash
+    cp .env.template .env
+   ```
+
+   ```env
+     VITE_MAPBOX_TOKEN=your_mapbox_token_here
+     VITE_API_URL=https://your-api-url.com
+   ```
+
+## 📦 Comandos disponibles
+
+- **Iniciar el servidor de desarrollo**:
+
+  ```bash
+  bun dev
+  # o
+  pnpm dev
+  ```
+
+- **Construir para producción**:
+
+  ```bash
+  bun build
+  # o
+  pnpm build
+  ```
+
+- **Vista previa de producción**:
+  ```bash
+  bun preview
+  # o
+  pnpm preview
+  ```
+
+## 📂 Estructura del proyecto
+
+El proyecto está organizado en las siguientes carpetas principales:
+
+- **src/components**: Contiene los componentes reutilizables, organizados en subcarpetas según su funcionalidad.
+- **src/contexts**: Maneja el estado global de la aplicación mediante contextos de React.
+- **src/hooks**: Hooks personalizados para lógica reutilizable.
+- **src/pages**: Vistas principales de la aplicación.
+- **src/services**: Servicios para interactuar con las APIs.
+- **src/lib**: Contiene utilidades y configuraciones comunes.
+- **src/assets**: Archivos estáticos, como imágenes y datos.
