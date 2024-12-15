@@ -4,7 +4,6 @@ import {
   MaterialSymbolsAddNotesRounded,
 } from "@/components/Icons";
 
-import Button from "@/components/ui/button";
 import Link from "@/components/ui/link";
 
 import { useUIContext } from "@/contexts/UIContext";

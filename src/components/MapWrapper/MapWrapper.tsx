@@ -7,7 +7,6 @@ import { usePropertiesContext } from "../../contexts/PropertiesContext";
 import "./MapWrapper.css";
 import MapPopupContent from "./MapPopupContent";
 import { createRoot } from "react-dom/client";
-import Link from "../ui/link";
 
 export default function Map() {
   const mapContainer = useRef<HTMLDivElement>(null);

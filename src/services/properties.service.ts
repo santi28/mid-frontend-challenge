@@ -1,9 +1,6 @@
 import axios from "../lib/axios";
 import { Property } from "../types/Property";
 
-import untypedProperties from "../assets/properties.json";
-import { data } from "react-router-dom";
-
 export interface Pagination {
   page: number;
   limit: number;
@@ -27,8 +24,6 @@ export interface FetchPropertiesCountResponse {
 const { VITE_API_URL } = import.meta.env;
 
 export class PropertiesService {
-  private properties = untypedProperties as Property[];
-
   async fetchProperties({
     page = 1,
     limit = 10,
