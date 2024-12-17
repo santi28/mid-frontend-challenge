@@ -141,7 +141,7 @@ export default function PropertyCreationForm({
       });
     }
 
-    // reset();
+    reset();
   };
 
   return (

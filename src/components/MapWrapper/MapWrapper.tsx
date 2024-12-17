@@ -41,7 +41,6 @@ export default function Map() {
 
     const mapInstance = map.current;
 
-    // Asegurarse de que el estilo del mapa esté cargado
     if (!mapInstance.isStyleLoaded()) {
       mapInstance.once("styledata", () => {
         addOrUpdateSourceAndLayers(mapInstance, visibleProperties);
@@ -58,7 +57,6 @@ export default function Map() {
     const sourceId = "properties";
 
     if (mapInstance.getSource(sourceId)) {
-      // Actualizar la fuente si ya existe
       const source = mapInstance.getSource(sourceId) as mapboxgl.GeoJSONSource;
       source.setData({
         type: "FeatureCollection",
@@ -88,7 +86,6 @@ export default function Map() {
         });
       });
 
-      // Agregar la fuente y las capas si no existen
       mapInstance.addSource(sourceId, {
         type: "geojson",
         data: {
@@ -164,7 +161,6 @@ export default function Map() {
         },
       });
 
-      // Cuando se hace click en un cluster, se acerca al mismo
       mapInstance.on("click", "clusters", (e) => {
         console.log("Acercando al cluster");
 
@@ -207,21 +203,17 @@ export default function Map() {
         const title = e.features[0].properties?.title;
         const price = currencyFormatter.format(e.features[0].properties?.price);
 
-        // Asegurar que el popup aparece sobre el punto seleccionado
         while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
           coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
         }
 
-        // Crear un contenedor para el componente React
         const popupContainer = document.createElement("div");
 
-        // Crear el popup
         const popup = new mapboxgl.Popup({ closeButton: false })
           .setLngLat([coordinates[0], coordinates[1]])
           .setDOMContent(popupContainer)
           .addTo(mapInstance);
 
-        // Renderizar el componente React en el contenedor
         const root = createRoot(popupContainer);
         root.render(
           <MapPopupContent
